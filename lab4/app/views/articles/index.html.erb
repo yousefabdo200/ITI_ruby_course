@@ -1,0 +1,13 @@
+<h1>Articles</h1>
+<%= link_to 'New Article', new_article_path %>
+
+<% @articles.each do |article| %>
+  <div>
+    <h2><%= link_to article.title, article_path(article) %></h2>
+    <% if article.image.attached? %>
+      <%= image_tag article.image, width: 200 %>
+    <% end %>
+    <p><%= article.content.truncate(100) %></p>
+    <%= button_to 'Report', report_article_path(article), method: :post unless article.user == current_user %>
+  </div>
+<% end %>
